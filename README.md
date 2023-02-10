@@ -4,6 +4,18 @@ AML 2022 summer project code, Hyperspectral Image Segmentation Uncertainty Quant
 
 # Acknowledgments
 
+© 2023. Triad National Security, LLC. All rights reserved.
+
+This program was produced under U.S. Government contract 89233218CNA000001 for Los Alamos
+National Laboratory (LANL), which is operated by Triad National Security, LLC for the U.S.
+Department of Energy/National Nuclear Security Administration. All rights in the program are
+reserved by Triad National Security, LLC, and the U.S. Department of Energy/National Nuclear
+Security Administration. The Government is granted for itself and others acting on its behalf a
+nonexclusive, paid-up, irrevocable worldwide license in this material to reproduce, prepare
+derivative works, distribute copies to the public, perform publicly and display publicly, and to permit
+others to do so.
+
+
 Code for the datasets.py, and util.py was originally adapted and modified the from the [DeepHyperX](https://github.com/nshaud/DeepHyperX/) package.
 
 Nicolas Audebert, Bertrand Le Saux and Sébastien Lefèvre
@@ -15,7 +27,7 @@ The cython code for SLIC was copied an modified from the skimage package so that
 
 The authors acknowledge the Aerospace Corporation for collecting and providing the historical airborne LWIR data from the Los Angeles basin area.
 
-# TODO
+<!-- # TODO
 
 1. Segmentation and Classification Models
     * Modify skimage models to work with multichannels
@@ -51,7 +63,7 @@ The authors acknowledge the Aerospace Corporation for collecting and providing t
         * [ ] ~~Predicted Probability Entropy~~
         * [ ] ~~Ensemble UQ~~
     * Segmentation Unvertainty Quantification
-        * [X] Random Radial Inclusion/Exclusion, Inverse SD Q Score, Average Ratio of E/S Q Scores
+        * [X] Random Radial Inclusion/Exclusion, Inverse SD Q Score, Average Ratio of E/S Q Scores -->
 
 
 # Examples
