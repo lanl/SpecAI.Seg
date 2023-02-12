@@ -2,15 +2,15 @@ from setuptools import setup, find_packages
 from Cython.Build import cythonize
 
 setup(
-    name="HSIsuqs",
+    name="SpecAISeg",
     version="1.0.0",    
     packages=find_packages(),
-    ext_modules=cythonize(["HSIsuqs/models/_slic.pyx"],
+    ext_modules=cythonize(["SpecAISeg/models/_slic.pyx"],
                        compiler_directives={'language_level' : "3"}),
     description='Code for doing hyperspectral image segmentation and uncertainty quantification.',
     long_description=README.md,
     long_description_content_type='text/markdown',
-    url='https://github.com/lanl/HSIsuqs',
+    url='https://github.com/lanl/SpecAISeg',
     author='Scout Cabe Jarman',
     author_email='scoutjarman@yahoo.com',
     license='GPLv3',

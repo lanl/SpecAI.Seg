@@ -1,4 +1,4 @@
-name: hsi
+name: SpecAISeg
 channels:
   - anaconda
   - pytorch
@@ -317,4 +317,3 @@ dependencies:
     - urllib3==1.26.9
     - visdom==0.1.8.9
     - websocket-client==1.3.2
-prefix: /home/sjarman/anaconda3/envs/hsi

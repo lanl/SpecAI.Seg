@@ -1,6 +1,6 @@
-# HSIsuqs
+# SpecAISeg
 
-AML 2022 summer project code, Hyperspectral Image Segmentation Uncertainty Quantification (HSIsuqs).
+AML 2022 summer project code, Hyperspectral Image Segmentation Uncertainty Quantification (SpecAISeg).
 
 # Acknowledgments
 
@@ -82,7 +82,7 @@ There are 6 easily accessible standard HSI datasets that can be automatically do
 They are IndianPines, Botswana, KSC, PaviaC, PaviaU, and Salinas.
 
 ```python
-from HSIsuqs import datasets
+from SpecAISeg import datasets
 
 indianPines = datasets.get_data('IndianPines')
 paviaU = datasets.get_data('PaviaU')
@@ -112,7 +112,7 @@ The return dictionary contains the raw image, the image with values clipped, the
 Here is an example.
 
 ```python
-from HSIsuqs import datasets
+from SpecAISeg import datasets
 
 file = 'data/image_folder/'
 ds = datasets.get_custom_data(file)
@@ -131,8 +131,8 @@ When you initialize a `Segmenter`, you can save the object to reference what par
 or you can initialize and call `get_segmentation` right away to just get the segment.
 
 ```python
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slic, Watershed, Slurm
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slic, Watershed, Slurm
 
 # loads the indian pines image
 indianPines = datasets.get_data('IndianPines')
@@ -161,9 +161,9 @@ It can also save a plot and auto generate a unique file path.
 ```python
 import matplotlib.pyplot as plt
 
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slic
-from HSIsuqs.plotting import plot_seg
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slic
+from SpecAISeg.plotting import plot_seg
 
 # load data
 ds = datasets.get_data('IndianPines')
@@ -195,9 +195,9 @@ and to increase the `min_size` parameter (which merges small regions in pos-proc
 This does tend to be a pretty quick segmenter, as long as the scale is high enough.
 
 ```python
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Felzenszwalb
-from HSIsuqs.plotting import plot_seg
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Felzenszwalb
+from SpecAISeg.plotting import plot_seg
 
 ds = datasets.get_data('PaviaC')
 alg_args = {'scale':2000, 'sigma':1.2, 'min_size':10}
@@ -215,9 +215,9 @@ Quickshift appears to be a pretty slow algorithm, so I haven't done much
 experimentation with the parameters.
 
 ```python
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Quickshift
-from HSIsuqs.plotting import plot_seg
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Quickshift
+from SpecAISeg.plotting import plot_seg
 
 ds = datasets.get_data('IndianPines')
 seg = Quickshift(ds).get_segmentation()
@@ -242,9 +242,9 @@ Note that `n_segments` is only approximatley the number of segments.
 ```python
 import matplotlib.pyplot as plt
 
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slic
-from HSIsuqs.plotting import plot_seg
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slic
+from SpecAISeg.plotting import plot_seg
 
 ds = datasets.get_data('IndianPines')
 alg_args = {'n_segments':300, 'dist_func':'cos', 'compactness':0.005}
@@ -276,9 +276,9 @@ are being randomly placed every time.
 ```python
 import matplotlib.pyplot as plt
 
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Watershed
-from HSIsuqs.plotting import plot_seg
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Watershed
+from SpecAISeg.plotting import plot_seg
 
 ds = datasets.get_data('IndianPines')
 alg_args = {'markers': 100}
@@ -307,9 +307,9 @@ This is a slow algorithm, and can be difficult to tune given the number of param
 ```python
 import matplotlib.pyplot as plt
 
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slurm
-from HSIsuqs.plotting import plot_seg
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slurm
+from SpecAISeg.plotting import plot_seg
 
 ds = datasets.get_data('salinas')
 
@@ -338,9 +338,9 @@ See the More Plotting section for a gif of these plots.
 ```python
 import matplotlib.pyplot as plt
 
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slurm
-from HSIsuqs.plotting import plot_SUQ
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slurm
+from SpecAISeg.plotting import plot_SUQ
 
 ds = datasets.get_data('salinas')
 obj = Slurm(salinas)
@@ -374,10 +374,10 @@ There is also an accompanying plotting function `plotting.plot_SUQ` to help visu
 Here is a basic example of finding the SUQ scores.
 
 ```python
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slic
-from HSIsuqs.plotting import plot_SUQ
-from HSIsuqs.uq.suqs import suqsES
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slic
+from SpecAISeg.plotting import plot_SUQ
+from SpecAISeg.uq.suqs import suqsES
 
 # first create a segmentation
 ds = datasets.get_data('indianPines')
@@ -417,7 +417,7 @@ There is also a plotting function to show these regions.
 enlarged, shrunken, original, Q_e, Q_s, Q_o, uq = suq.get_e_s_boundaries(1)
 
 # To plot use this
-from HSIsuqs.plotting import plot_individual_SUQ
+from SpecAISeg.plotting import plot_individual_SUQ
 plot_individual_SUQ(ds, seg, 215, save=False, uq_args={'r':2, 'p':.65}, seed=420)
 ```
 
@@ -437,8 +437,8 @@ inside the segment using that local covariance and mean spectra.
 First, to find the globally whitened version of an image, you can do the following.
 
 ```python
-from HSIsuqs.datasets import get_custom_data
-from HSIsuqs.whitening import whiten_img
+from SpecAISeg.datasets import get_custom_data
+from SpecAISeg.whitening import whiten_img
 
 file = 'data/image_folder'
 ds = get_custom_data(file)
@@ -457,8 +457,8 @@ The default is to have `r=None` and `min_r=3`
 The command is the same as above, but now you need a segmentation.
 
 ```python
-from HSIsuqs.models.segmenters import Watershed
-from HSIsuqs.plotting import plot_seg_spectra
+from SpecAISeg.models.segmenters import Watershed
+from SpecAISeg.plotting import plot_seg_spectra
 from matplotlib import pyplot as plt
 
 seg_water = Watershed(ds, markers=300).get_segmentation()
@@ -487,7 +487,7 @@ And for the segmentation, we use the `IMG_MASK` from the roi dict which will be 
 Note that the images are on different y scales.
 
 ```python
-from HSIsuqs.utils import get_roi
+from SpecAISeg.utils import get_roi
 
 roi_file = 'data/roi_info/roi.json'
 res = get_roi(roi_file, ds['img_raw'], ds['img_rgb'])
@@ -518,7 +518,7 @@ We can load a DeepHAT model using `models.classifiers.TrainedModel`.
 Because we have already found whitened data, we can pass it into the model.
 
 ```python
-from HSIsuqs.models.classifiers import TrainedModel
+from SpecAISeg.models.classifiers import TrainedModel
 
 model_file = 'data/models/my_model.pt'
 model = TrainedModel(model_file, roi_file, ds, whiten=img_water)
@@ -552,9 +552,9 @@ But that is unavoidable for large images with many segments.
 Here is an example.
 
 ```python
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slic
-from HSIsuqs.plotting import plot_seg_spectra
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slic
+from SpecAISeg.plotting import plot_seg_spectra
 
 ds = datasets.get_data('paviaC')
 seg = Slic(ds, n_segments=1000).get_segmentation()
@@ -568,9 +568,9 @@ If the image you are working with is a strange dimension (say very long and thin
 Here is what the default plot will look like for this long image.
 
 ```python
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slic
-from HSIsuqs.plotting import plot_seg
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slic
+from SpecAISeg.plotting import plot_seg
 
 file = 'data/image_folder/'
 ds = datasets.get_custom_data(file)
@@ -598,8 +598,8 @@ Here we also use `top_to_bottom` to make the plots stack on top of each other in
 We also use `colorbar=False` so that the colored image matches the dimensions of the segmentation image.
 
 ```python
-from HSIsuqs.uq.suqs import suqsES
-from HSIsuqs.plotting import plot_SUQ
+from SpecAISeg.uq.suqs import suqsES
+from SpecAISeg.plotting import plot_SUQ
 uq_l, uq_d = suqsES(ds, seg, n=10, p=.65, r=2).get_uq()
 plot_SUQ(ds, Slic, seg=seg, uq=uq_d, rotation=90, top_to_bottom=True, fig_size=(30, 3.5),
          colorbar=False, bound_args={'mode': 'thick'})
@@ -611,7 +611,7 @@ Lastly we do the same thing for plotting the spectra averages.
 Note that with long images, it will simply be difficult to make good looking plots.
 
 ```python
-from HSIsuqs.plotting import plot_seg_spectra
+from SpecAISeg.plotting import plot_seg_spectra
 plot_seg_spectra(ds, Slic, seg=seg, rotation=90, top_to_bottom=True, fig_size=(30, 3.5),
                  bound_args={'mode':'thick'}, line_alpha=.5)
 ```
@@ -635,9 +635,9 @@ We use the plotting functions file saving to save the plots for us.
 ```python
 from tqdm.notebook import tqdm
 
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slic
-from HSIsuqs.plotting import plot_seg
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slic
+from SpecAISeg.plotting import plot_seg
 
 ds = datasets.get_data('IndianPines')
 
@@ -672,9 +672,9 @@ The file number can be anything, like a parameter used to make the plot, the num
 Here we use the index of a for loop to save and number our files.
 
 ```python
-from HSIsuqs import datasets
-from HSIsuqs.models.segmenters import Slurm
-from HSIsuqs.plotting import plot_SUQ
+from SpecAISeg import datasets
+from SpecAISeg.models.segmenters import Slurm
+from SpecAISeg.plotting import plot_SUQ
 
 # Get Slurm segments
 ds = datasets.get_data('IndianPines')
@@ -701,9 +701,9 @@ convert -delay 100 -dispose Previous -loop 0 readme_figures/gif_2/Slurm_*.png re
 Lastly, this is how to make a gif for different simulations of a region while calculating the SUQ score.
 
 ```python
-from HSIsuqs.datasets import get_data
-from HSIsuqs.models.segmenters import Slic
-from HSIsuqs.plotting import plot_individual_SUQ
+from SpecAISeg.datasets import get_data
+from SpecAISeg.models.segmenters import Slic
+from SpecAISeg.plotting import plot_individual_SUQ
 
 ds = get_data('indianPines')
 seg = Slic(ds, n_segments=200, compactness=.005).get_segmentation()
