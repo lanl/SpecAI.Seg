@@ -3,13 +3,13 @@ seg_scores/
 Figures/
 .vscode
 TestingInference
-hsisuqs.code-workspace
+SpecAISeg.code-workspace
 ./provinGround.ipynb
 ./provinGround.py
 ./provinGround2.ipynb
 ./provinGround3.ipynb
-HSIsuqs/models/_slic.c
-HSIsuqs/models/_classifiers/library_clusters.json
+SpecAISeg/models/_slic.c
+SpecAISeg/models/_classifiers/library_clusters.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -21,7 +21,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-# build/
+build/
 develop-eggs/
 dist/
 downloads/
@@ -175,5 +175,5 @@ provinGround.ipynb
 provinGround.py
 provinGround2.ipynb
 provinGround3.ipynb
-HSIsuqs/models/_classifiers/library_clusters.json
-HSIsuqs/models/_classifiers/library_clusters.json
+SpecAISeg/models/_classifiers/library_clusters.json
+SpecAISeg/models/_classifiers/library_clusters.json
