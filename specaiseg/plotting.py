@@ -7,9 +7,9 @@ import numpy as np
 from scipy import ndimage
 from skimage.segmentation import mark_boundaries
 
-from SpecAISeg.metrics import distance as dist
-from SpecAISeg.uq.suqs import suqsES
-from SpecAISeg.utils import get_pixels
+from .metrics import distance as dist
+from .uq.suqs import suqsES
+from .utils import get_pixels
 
 
 

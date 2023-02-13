@@ -1,8 +1,4 @@
-import pip
-pip.main(['install', 'cython'])
-
 from setuptools import setup, find_packages
-from Cython.Build import cythonize
 
 from pathlib import Path
 this_directory = Path(__file__).parent
@@ -10,16 +6,20 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="specaiseg",
-    version="1.0.3",    
+    version="1.0.7",    
     packages=find_packages(),
     install_requires = [
         'numpy',
         'pandas',
         'torch',
-        'scikit-image'
+        'scikit-image',
+        'scipy',
+        'scikit-learn',
+        'tqdm',
+        'spectral',
+        'matplotlib'
     ],
-    ext_modules=cythonize(["specaiseg/models/_slic.pyx"],
-                       compiler_directives={'language_level' : "3"}),
+    package_data={'specaiseg' : ['specaiseg/data_raw/datasets.csv']},
     description='Code for doing hyperspectral image segmentation and uncertainty quantification.',
     long_description=long_description,
     long_description_content_type='text/markdown',

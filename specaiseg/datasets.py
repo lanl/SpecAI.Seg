@@ -4,6 +4,7 @@ import warnings
 from abc import ABC, abstractmethod
 from pathlib import Path
 from urllib.request import urlretrieve
+import pkg_resources
 
 import numpy as np
 import pandas as pd
@@ -156,8 +157,10 @@ def get_data(dataset_name, target_folder='./Data', datasets=None, clip_p=0.0025)
     if datasets is None:
         # Reads in datasets.csv file which has the urls to download standard, 1 image datasets
         this_dir, this_filename = os.path.split(__file__)
-        datasets = pd.read_csv(os.path.join(
-            this_dir, 'data_raw/datasets.csv'), index_col=0).to_dict()
+        data_file = pkg_resources.resource_filename('specaiseg', 'data_raw/datasets.csv')
+        datasets = pd.read_csv(data_file, index_col=0).to_dict()
+        # datasets = pd.read_csv(os.path.join(
+        #     this_dir, 'data_raw/datasets.csv'), index_col=0).to_dict()
         # Converts urls etc to actually be lists
         for name in datasets:
             for var in datasets[name]:
