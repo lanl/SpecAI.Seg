@@ -1,23 +1,29 @@
-# import pip
-# pip.main(['install', 'cython'])
+import pip
+pip.main(['install', 'cython'])
 
 from setuptools import setup, find_packages
-# from Cython.Build import cythonize
+from Cython.Build import cythonize
 
 from pathlib import Path
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setup(
-    name="SpecAI.Seg",
-    version="1.0.1",    
+    name="specaiseg",
+    version="1.0.3",    
     packages=find_packages(),
-    # ext_modules=cythonize(["specaiseg/models/_slic.pyx"],
-    #                    compiler_directives={'language_level' : "3"}),
+    install_requires = [
+        'numpy',
+        'pandas',
+        'torch',
+        'scikit-image'
+    ],
+    ext_modules=cythonize(["specaiseg/models/_slic.pyx"],
+                       compiler_directives={'language_level' : "3"}),
     description='Code for doing hyperspectral image segmentation and uncertainty quantification.',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/lanl/SpecAI.Seg',
+    url='https://github.com/lanl/specaiseg',
     author='Scout Cabe Jarman',
     author_email='scoutjarman@yahoo.com',
     license='GPLv3',
