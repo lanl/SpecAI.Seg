@@ -3,9 +3,9 @@ from abc import ABC, abstractmethod
 from functools import partial
 from multiprocessing.pool import Pool
 
-import graph_tool as gt
+# import graph_tool as gt
 import numpy as np
-from graph_tool.topology import label_components
+# from graph_tool.topology import label_components
 from skimage import morphology, segmentation
 from skimage._shared.filters import gaussian
 from skimage._shared.utils import _supported_float_type
@@ -58,38 +58,41 @@ def _label_graph(mat):
     Returns:
         tuple: the segmentation map, and the counts for each segment
     """
-    g = gt.Graph(directed=False)
-    verts = np.empty_like(mat, dtype=gt.Vertex)
-    for r in range(mat.shape[0]):
-        for c in range(mat.shape[1]):
-            v = g.add_vertex()
-            verts[r, c] = v
+    seg = label_clusters(mat)
+    counts = np.bincount(seg.flatten())
+    return seg, counts
+    # g = gt.Graph(directed=False)
+    # verts = np.empty_like(mat, dtype=gt.Vertex)
+    # for r in range(mat.shape[0]):
+    #     for c in range(mat.shape[1]):
+    #         v = g.add_vertex()
+    #         verts[r, c] = v
 
-    for r in range(mat.shape[0]):
-        for c in range(mat.shape[1]):
-            lab = mat[r, c]
-            lu = r - 1 >= 0
-            ld = r + 1 < verts.shape[0]
-            ll = c - 1 >= 0
-            lr = c + 1 < verts.shape[1]
+    # for r in range(mat.shape[0]):
+    #     for c in range(mat.shape[1]):
+    #         lab = mat[r, c]
+    #         lu = r - 1 >= 0
+    #         ld = r + 1 < verts.shape[0]
+    #         ll = c - 1 >= 0
+    #         lr = c + 1 < verts.shape[1]
 
-            if lu and mat[r - 1, c] == lab:
-                g.add_edge(verts[r - 1, c], verts[r, c])
-            if ld and mat[r + 1, c] == lab:
-                g.add_edge(verts[r + 1, c], verts[r, c])
-            if ll and mat[r, c - 1] == lab:
-                g.add_edge(verts[r, c - 1], verts[r, c])
-            if lr and mat[r, c + 1] == lab:
-                g.add_edge(verts[r, c + 1], verts[r, c])
+    #         if lu and mat[r - 1, c] == lab:
+    #             g.add_edge(verts[r - 1, c], verts[r, c])
+    #         if ld and mat[r + 1, c] == lab:
+    #             g.add_edge(verts[r + 1, c], verts[r, c])
+    #         if ll and mat[r, c - 1] == lab:
+    #             g.add_edge(verts[r, c - 1], verts[r, c])
+    #         if lr and mat[r, c + 1] == lab:
+    #             g.add_edge(verts[r, c + 1], verts[r, c])
 
-    comp, counts = label_components(g, directed=False)
-    i = 0
-    res = np.empty_like(mat)
-    for r in range(mat.shape[0]):
-        for c in range(mat.shape[1]):
-            res[r, c] = comp[i]
-            i += 1
-    return res.astype(int), counts
+    # comp, counts = label_components(g, directed=False)
+    # i = 0
+    # res = np.empty_like(mat)
+    # for r in range(mat.shape[0]):
+    #     for c in range(mat.shape[1]):
+    #         res[r, c] = comp[i]
+    #         i += 1
+    # return res.astype(int), counts
 
 
 def _remove_singletons(seg, min_size, relabel=True):
