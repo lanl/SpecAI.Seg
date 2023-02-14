@@ -5,8 +5,8 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setup(
-    name="specaiseg",
-    version="1.0.7",    
+    name="SpecAI.Seg",
+    version="1.0.1",    
     packages=find_packages(),
     install_requires = [
         'numpy',
@@ -19,7 +19,8 @@ setup(
         'spectral',
         'matplotlib'
     ],
-    package_data={'specaiseg' : ['specaiseg/data_raw/datasets.csv']},
+    include_package_data=True,
+    package_data={'specaiseg' : ['data_raw/datasets.csv']},
     description='Code for doing hyperspectral image segmentation and uncertainty quantification.',
     long_description=long_description,
     long_description_content_type='text/markdown',
